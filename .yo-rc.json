@@ -1,0 +1,42 @@
+{
+  "generator-jhipster": {
+    "promptValues": {
+      "packageName": "com.boxing.maghnia",
+      "nativeLanguage": "fr"
+    },
+    "jhipsterVersion": "6.3.1",
+    "applicationType": "monolith",
+    "baseName": "boxing",
+    "packageName": "com.boxing.maghnia",
+    "packageFolder": "com/boxing/maghnia",
+    "serverPort": "8080",
+    "authenticationType": "jwt",
+    "cacheProvider": "ehcache",
+    "enableHibernateCache": true,
+    "websocket": false,
+    "databaseType": "sql",
+    "devDatabaseType": "postgresql",
+    "prodDatabaseType": "postgresql",
+    "searchEngine": false,
+    "messageBroker": false,
+    "serviceDiscoveryType": false,
+    "buildTool": "maven",
+    "enableSwaggerCodegen": false,
+    "jwtSecretKey": "OTY0ZTc2YzQzNTdiODQ0YzhjNDg4NzYxY2IxYjMzMjJmOTY2YmY1Y2ZkNDk5ZWY4OTIwNTAwNTMwYzc0ZTQwNmMwOWUyNWMyZTU5OTM2N2YxNmUyNjc3MGIzZDdhN2ZkNzVhYzNiZTk1M2FmZTlhMGQ2YzNiMWExM2IxNGVlYjc=",
+    "embeddableLaunchScript": false,
+    "useSass": true,
+    "clientPackageManager": "npm",
+    "clientFramework": "angularX",
+    "clientTheme": "superhero",
+    "clientThemeVariant": "light",
+    "testFrameworks": [],
+    "jhiPrefix": "jhi",
+    "entitySuffix": "",
+    "dtoSuffix": "DTO",
+    "otherModules": [],
+    "enableTranslation": true,
+    "nativeLanguage": "fr",
+    "languages": ["fr", "ar-ly", "en"],
+    "blueprints": []
+  }
+}

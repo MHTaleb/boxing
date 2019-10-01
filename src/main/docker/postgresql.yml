@@ -1,0 +1,11 @@
+version: '2'
+services:
+  boxing-postgresql:
+    image: postgres:11.5
+    # volumes:
+    #     - ~/volumes/jhipster/boxing/postgresql/:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=boxing
+      - POSTGRES_PASSWORD=
+    ports:
+      - 5432:5432
