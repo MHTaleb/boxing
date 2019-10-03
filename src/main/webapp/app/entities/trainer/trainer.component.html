@@ -1,0 +1,67 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="boxingApp.trainer.home.title">Trainers</span>
+        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-trainer" [routerLink]="['/trainer/new']">
+            <fa-icon [icon]="'plus'"></fa-icon>
+            <span  jhiTranslate="boxingApp.trainer.home.createLabel">
+            Create a new Trainer
+            </span>
+        </button>
+    </h2>
+    <jhi-alert></jhi-alert>
+    <br/>
+    <div class="alert alert-warning" *ngIf="trainers?.length === 0">
+        <span jhiTranslate="boxingApp.trainer.home.notFound">No trainers found</span>
+    </div>
+    <div class="table-responsive" *ngIf="trainers?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
+            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="fullName"><span jhiTranslate="boxingApp.trainer.fullName">Full Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="birthDate"><span jhiTranslate="boxingApp.trainer.birthDate">Birth Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="phone"><span jhiTranslate="boxingApp.trainer.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th jhiSortBy="picture.title"><span jhiTranslate="boxingApp.trainer.picture">Picture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
+            <tr *ngFor="let trainer of trainers ;trackBy: trackId">
+                <td><a [routerLink]="['/trainer', trainer.id, 'view' ]">{{trainer.id}}</a></td>
+                <td>{{trainer.fullName}}</td>
+                <td>{{trainer.birthDate | date:'mediumDate'}}</td>
+                <td>{{trainer.phone}}</td>
+                <td>
+                    <div *ngIf="trainer.picture">
+                        <a [routerLink]="['/picture', trainer.picture?.id, 'view' ]" >{{trainer.picture?.title}}</a>
+                    </div>
+                </td>
+                <td class="text-right">
+                    <div class="btn-group">
+                        <button type="submit"
+                                [routerLink]="['/trainer', trainer.id, 'view' ]"
+                                class="btn btn-info btn-sm">
+                            <fa-icon [icon]="'eye'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/trainer', trainer.id, 'edit']"
+                                class="btn btn-primary btn-sm">
+                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                        </button>
+                        <button type="submit"
+                                [routerLink]="['/trainer', { outlets: { popup: trainer.id + '/delete'} }]"
+                                replaceUrl="true"
+                                queryParamsHandling="merge"
+                                class="btn btn-danger btn-sm">
+                            <fa-icon [icon]="'times'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -42,6 +42,12 @@ public class CacheConfiguration {
             createCache(cm, com.boxing.maghnia.domain.User.class.getName());
             createCache(cm, com.boxing.maghnia.domain.Authority.class.getName());
             createCache(cm, com.boxing.maghnia.domain.User.class.getName() + ".authorities");
+            createCache(cm, com.boxing.maghnia.domain.Picture.class.getName());
+            createCache(cm, com.boxing.maghnia.domain.Trainer.class.getName());
+            createCache(cm, com.boxing.maghnia.domain.Boxer.class.getName());
+            createCache(cm, com.boxing.maghnia.domain.Lesson.class.getName());
+            createCache(cm, com.boxing.maghnia.domain.Lesson.class.getName() + ".boxers");
+            createCache(cm, com.boxing.maghnia.domain.Versement.class.getName());
             // jhipster-needle-ehcache-add-entry
         };
     }

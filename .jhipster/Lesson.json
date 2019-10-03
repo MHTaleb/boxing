@@ -1,0 +1,43 @@
+{
+    "name": "Lesson",
+    "fields": [
+        {
+            "fieldName": "detail",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "date",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "hour",
+            "fieldType": "Instant"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "many-to-one",
+            "otherEntityName": "trainer",
+            "otherEntityRelationshipName": "lesson",
+            "relationshipName": "trainer",
+            "otherEntityField": "fullName"
+        },
+        {
+            "relationshipType": "many-to-many",
+            "otherEntityName": "boxer",
+            "otherEntityRelationshipName": "lesson",
+            "relationshipName": "boxer",
+            "otherEntityField": "fullName",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20191001153113",
+    "entityTableName": "lesson",
+    "dto": "no",
+    "pagination": "pagination",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

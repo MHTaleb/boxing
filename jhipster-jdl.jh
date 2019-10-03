@@ -1,0 +1,56 @@
+
+entity Versement{
+	montant Double,
+    date LocalDate
+}
+
+
+entity Picture{
+	title String unique,
+	img ImageBlob
+}
+
+entity Trainer{
+	fullName String,
+    birthDate LocalDate,
+    phone String
+}
+
+entity Boxer{
+	fullName String,
+    birthDate LocalDate,
+    phone String
+}
+
+entity Lesson{
+	detail String,
+    date LocalDate,
+    hour Instant
+}
+
+relationship OneToOne {
+	Boxer{picture(title)} to Picture,
+    Trainer{picture(title)} to Picture
+}
+
+relationship ManyToOne {
+ 	Lesson{trainer(fullName)} to Trainer
+	Versement{boxer(fullName)} to Boxer
+}
+
+relationship ManyToMany{
+	Lesson{boxer(fullName)} to Boxer
+}
+
+// Set pagination options
+paginate Boxer, Trainer with infinite-scroll
+paginate Picture, Lesson with pagination
+
+// Use Data Transfert Objects (DTO)
+// dto * with mapstruct
+
+// Set service options to all except few
+service all with serviceImpl 
+
+// Set an angular suffix
+// angularSuffix * with mySuffix

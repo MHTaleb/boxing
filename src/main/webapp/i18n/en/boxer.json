@@ -1,0 +1,25 @@
+{
+  "boxingApp": {
+    "boxer": {
+      "home": {
+        "title": "Boxers",
+        "createLabel": "Create a new Boxer",
+        "createOrEditLabel": "Create or edit a Boxer",
+        "notFound": "No Boxers found"
+      },
+      "created": "A new Boxer is created with identifier {{ param }}",
+      "updated": "A Boxer is updated with identifier {{ param }}",
+      "deleted": "A Boxer is deleted with identifier {{ param }}",
+      "delete": {
+        "question": "Are you sure you want to delete Boxer {{ id }}?"
+      },
+      "detail": {
+        "title": "Boxer"
+      },
+      "fullName": "Full Name",
+      "birthDate": "Birth Date",
+      "phone": "Phone",
+      "picture": "Picture"
+    }
+  }
+}

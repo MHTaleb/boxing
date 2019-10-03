@@ -1,0 +1,36 @@
+{
+    "name": "Boxer",
+    "fields": [
+        {
+            "fieldName": "fullName",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "birthDate",
+            "fieldType": "LocalDate"
+        },
+        {
+            "fieldName": "phone",
+            "fieldType": "String"
+        }
+    ],
+    "relationships": [
+        {
+            "relationshipType": "one-to-one",
+            "otherEntityName": "picture",
+            "otherEntityRelationshipName": "boxer",
+            "relationshipName": "picture",
+            "otherEntityField": "title",
+            "ownerSide": true
+        }
+    ],
+    "changelogDate": "20191001153112",
+    "entityTableName": "boxer",
+    "dto": "no",
+    "pagination": "infinite-scroll",
+    "service": "serviceImpl",
+    "jpaMetamodelFiltering": false,
+    "fluentMethods": true,
+    "clientRootFolder": "",
+    "applications": "*"
+}

@@ -1,0 +1,41 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="boxer">
+            <h2><span jhiTranslate="boxingApp.boxer.detail.title">Boxer</span> {{boxer.id}}</h2>
+            <hr>
+            <jhi-alert-error></jhi-alert-error>
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="boxingApp.boxer.fullName">Full Name</span></dt>
+                <dd>
+                    <span>{{boxer.fullName}}</span>
+                </dd>
+                <dt><span jhiTranslate="boxingApp.boxer.birthDate">Birth Date</span></dt>
+                <dd>
+                    <span>{{boxer.birthDate}}</span>
+                </dd>
+                <dt><span jhiTranslate="boxingApp.boxer.phone">Phone</span></dt>
+                <dd>
+                    <span>{{boxer.phone}}</span>
+                </dd>
+                <dt><span jhiTranslate="boxingApp.boxer.picture">Picture</span></dt>
+                <dd>
+                    <div *ngIf="boxer.picture">
+                        <a [routerLink]="['/picture', boxer.picture?.id, 'view']">{{boxer.picture?.title}}</a>
+                    </div>
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/boxer', boxer.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
+            </button>
+        </div>
+    </div>
+</div>

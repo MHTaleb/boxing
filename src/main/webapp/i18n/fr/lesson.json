@@ -1,0 +1,26 @@
+{
+  "boxingApp": {
+    "lesson": {
+      "home": {
+        "title": "Lessons",
+        "createLabel": "Créer un nouveau Lesson",
+        "createOrEditLabel": "Créer ou éditer un Lesson",
+        "notFound": "Aucun Lesson trouvé"
+      },
+      "created": "Un nouveau Lesson a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Lesson avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Lesson avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Etes-vous certain de vouloir supprimer le Lesson {{ id }} ?"
+      },
+      "detail": {
+        "title": "Lesson"
+      },
+      "detail": "Detail",
+      "date": "Date",
+      "hour": "Hour",
+      "trainer": "Trainer",
+      "boxer": "Boxer"
+    }
+  }
+}
