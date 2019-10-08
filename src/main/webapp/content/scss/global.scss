@@ -1,6 +1,6 @@
 @import 'bootstrap-variables';
 @import '~bootstrap/scss/functions';
-@import '~bootswatch/dist/simplex/variables';
+@import '~bootswatch/dist/cosmo/variables';
 @import '~bootstrap/scss/variables';
 
 /* ==============================================================
@@ -163,4 +163,9 @@ ui bootstrap tweaks
   white-space: nowrap;
 }
 
+.focus-secondary:focus,
+.focus-secondary.focus {
+  -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 58, 60, 0.5);
+  box-shadow: 0 0 0 0.2rem rgba(55, 58, 60, 0.5);
+}
 /* jhipster-needle-scss-add-main JHipster will add new css style */

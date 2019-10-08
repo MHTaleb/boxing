@@ -1,67 +1,116 @@
 <div>
+
     <h2 id="page-heading">
         <span jhiTranslate="boxingApp.boxer.home.title">Boxers</span>
-        <button id="jh-create-entity" class="btn btn-primary float-right jh-create-entity create-boxer" [routerLink]="['/boxer/new']">
+        <button id="jh-create-entity" class="btn btn-outline-info float-right jh-create-entity create-boxer"
+            [routerLink]="['/boxer/new']">
             <fa-icon [icon]="'plus'"></fa-icon>
-            <span  jhiTranslate="boxingApp.boxer.home.createLabel">
-            Create a new Boxer
+            <span jhiTranslate="boxingApp.boxer.home.createLabel">
+                Create a new Boxer
             </span>
         </button>
     </h2>
+
     <jhi-alert></jhi-alert>
-    <br/>
+    <br />
+
     <div class="alert alert-warning" *ngIf="boxers?.length === 0">
         <span jhiTranslate="boxingApp.boxer.home.notFound">No boxers found</span>
     </div>
-    <div class="table-responsive" *ngIf="boxers?.length > 0">
-        <table class="table table-striped" aria-describedby="page-heading">
-            <thead>
-            <tr jhiSort [(predicate)]="predicate" [(ascending)]="reverse" [callback]="reset.bind(this)">
-            <th jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="fullName"><span jhiTranslate="boxingApp.boxer.fullName">Full Name</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="birthDate"><span jhiTranslate="boxingApp.boxer.birthDate">Birth Date</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="phone"><span jhiTranslate="boxingApp.boxer.phone">Phone</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th jhiSortBy="picture.title"><span jhiTranslate="boxingApp.boxer.picture">Picture</span> <fa-icon [icon]="'sort'"></fa-icon></th>
-            <th></th>
-            </tr>
-            </thead>
-            <tbody infinite-scroll (scrolled)="loadPage(page + 1)" [infiniteScrollDisabled]="page >= links['last']" [infiniteScrollDistance]="0">
-            <tr *ngFor="let boxer of boxers ;trackBy: trackId">
-                <td><a [routerLink]="['/boxer', boxer.id, 'view' ]">{{boxer.id}}</a></td>
-                <td>{{boxer.fullName}}</td>
-                <td>{{boxer.birthDate | date:'mediumDate'}}</td>
-                <td>{{boxer.phone}}</td>
-                <td>
-                    <div *ngIf="boxer.picture">
-                        <a [routerLink]="['/picture', boxer.picture?.id, 'view' ]" >{{boxer.picture?.title}}</a>
-                    </div>
-                </td>
-                <td class="text-right">
-                    <div class="btn-group">
-                        <button type="submit"
-                                [routerLink]="['/boxer', boxer.id, 'view' ]"
-                                class="btn btn-info btn-sm">
+
+    <div  *ngIf="boxers?.length > 0">
+
+        <div class="input-group  mb-2 pl-2   ">
+            <!-- ordering filter-->
+            <table class="table " style="border: hidden; float:right;" aria-describedby="page-heading">
+                <thead style="border: hidden;">
+                    <tr jhiSort style="border: hidden;     float: right;" [(predicate)]="predicate"
+                        [(ascending)]="reverse" [callback]="reset.bind(this)">
+                        <th style="border: hidden;"><span>Order By : </span>
+                        </th>
+                        <th style="border: hidden;" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th style="border: hidden;" jhiSortBy="fullName"><span
+                                jhiTranslate="boxingApp.boxer.fullName">Full Name</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th style="border: hidden;" jhiSortBy="birthDate"><span
+                                jhiTranslate="boxingApp.boxer.birthDate">Birth Date</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th style="border: hidden;" jhiSortBy="phone"><span
+                                jhiTranslate="boxingApp.boxer.phone">Phone</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                        <th style="border: hidden;" jhiSortBy="picture.title"><span
+                                jhiTranslate="boxingApp.boxer.picture">Picture</span>
+                            <fa-icon [icon]="'sort'"></fa-icon>
+                        </th>
+                    </tr>
+                </thead>
+            </table>
+
+            <!-- search filter-->
+            <input type="text" class="form-control border-secondary table-primary focus-secondary  "
+                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="searchValue">
+            <div class="input-group-append mr-2" (click)="onButtonGroupClick($event)">
+                <button class="btn btn btn-outline-secondary active" type="button"
+                    jhiTranslate="boxingApp.boxer.fullName" value="fullName">FullName</button>
+                <button class="btn btn btn-outline-secondary" type="button" jhiTranslate="boxingApp.boxer.phone"
+                    value="phone">Phone Number</button>
+                <button class="btn btn btn-outline-secondary" type="button" jhiTranslate="boxingApp.boxer.birthDate"
+                    value="birthDate">Birth Date</button>
+            </div>
+        </div>
+
+        <div class="row ml-1">
+
+            <div *ngFor="let boxer of boxers | filterBy: searchFilter : searchValue;trackBy: trackId"
+                class="card mx-1 mb-1" style="width: 23rem;">
+
+                <div class="mt-auto">
+                    <ul class="list-group list-group-flush">
+                        <div class="d-flex justify-content-center">
+                            <a *ngIf="boxer.picture?.img"
+                                (click)="openFile(boxer.picture.imgContentType, boxer.picture.img)">
+                                <img [src]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
+                                    style="max-width: 18rem;max-height: 18rem;" alt="picture image" />
+                            </a>
+                        </div>
+                        <li class="list-group-item">
+                            <h4 class="card-title"><b><span jhiTranslate="boxingApp.boxer.info">Information</span></b>
+                            </h4>
+                            <p class="card-text"><b><span jhiTranslate="boxingApp.boxer.fullName">FullName</span></b>:
+                                {{boxer.fullName}}</p>
+                            <p class="card-text"><b><span jhiTranslate="boxingApp.boxer.birthDate">Birth
+                                        Date</span></b>: {{boxer.birthDate | date:'shortDate'}}</p>
+                            <p class="card-text"><b><span jhiTranslate="boxingApp.boxer.phone">Birth Date</span></b>:
+                                {{boxer.phone}}</p>
+                        </li>
+
+                    </ul>
+                    <div class="card-body">
+                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
+                            class="btn btn-outline-success btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/boxer', boxer.id, 'edit']"
-                                class="btn btn-primary btn-sm">
+                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'edit']"
+                            class="btn btn-outline-primary btn-sm">
                             <fa-icon [icon]="'pencil-alt'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
                         </button>
-                        <button type="submit"
-                                [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
-                                replaceUrl="true"
-                                queryParamsHandling="merge"
-                                class="btn btn-danger btn-sm">
+                        <button type="submit" [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
+                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
                             <fa-icon [icon]="'times'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
                         </button>
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </div>
+
+            </div>
+
+        </div>
     </div>
 </div>

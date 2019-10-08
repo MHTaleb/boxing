@@ -2,24 +2,25 @@
   "boxingApp": {
     "boxer": {
       "home": {
-        "title": "Boxers",
-        "createLabel": "Créer un nouveau Boxer",
-        "createOrEditLabel": "Créer ou éditer un Boxer",
-        "notFound": "Aucun Boxer trouvé"
+        "title": "Boxeurs",
+        "createLabel": "Créer un nouveau Boxeur",
+        "createOrEditLabel": "Créer ou éditer un Boxeur",
+        "notFound": "Aucun Boxeur trouvé"
       },
-      "created": "Un nouveau Boxer a été créé avec l'identifiant {{ param }}",
+      "created": "Un nouveau Boxeur a été créé avec l'identifiant {{ param }}",
       "updated": "Le Boxer avec l'identifiant {{ param }} a été mis à jour",
       "deleted": "Le Boxer avec l'identifiant {{ param }} a été supprimé",
       "delete": {
-        "question": "Etes-vous certain de vouloir supprimer le Boxer {{ id }} ?"
+        "question": "Etes-vous certain de vouloir supprimer le Boxeur {{ fullName }} ?"
       },
       "detail": {
-        "title": "Boxer"
+        "title": "Boxeur"
       },
-      "fullName": "Full Name",
-      "birthDate": "Birth Date",
-      "phone": "Phone",
-      "picture": "Picture"
+      "fullName": "Nom et Prénom",
+      "birthDate": "Date de Naissance",
+      "info": "Information",
+      "phone": "Téléphone",
+      "picture": "Photo"
     }
   }
 }

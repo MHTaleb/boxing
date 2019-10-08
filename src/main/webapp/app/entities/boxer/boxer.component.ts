@@ -3,13 +3,14 @@ import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/ht
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { filter, map } from 'rxjs/operators';
-import { JhiEventManager, JhiParseLinks, JhiAlertService } from 'ng-jhipster';
+import { JhiEventManager, JhiParseLinks, JhiAlertService, JhiDataUtils } from 'ng-jhipster';
 
 import { IBoxer } from 'app/shared/model/boxer.model';
 import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
+import { PictureService } from '../picture/picture.service';
 
 @Component({
   selector: 'jhi-boxer',
@@ -25,13 +26,17 @@ export class BoxerComponent implements OnInit, OnDestroy {
   predicate: any;
   reverse: any;
   totalItems: number;
+  searchFilter: any[];
+  searchValue: any;
 
   constructor(
     protected boxerService: BoxerService,
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected parseLinks: JhiParseLinks,
-    protected accountService: AccountService
+    protected accountService: AccountService,
+    protected pictureService: PictureService,
+    protected dataUtils: JhiDataUtils
   ) {
     this.boxers = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
@@ -41,6 +46,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
     };
     this.predicate = 'id';
     this.reverse = true;
+    this.searchFilter = [];
+    this.searchFilter.push('fullName');
   }
 
   loadAll() {
@@ -93,6 +100,30 @@ export class BoxerComponent implements OnInit, OnDestroy {
       result.push('id');
     }
     return result;
+  }
+  onButtonGroupClick($event) {
+    const clickedElement = $event.target || $event.srcElement;
+
+    if (clickedElement.nodeName === 'BUTTON') {
+      const isCertainButtonAlreadyActive = clickedElement.parentElement.querySelector('.active');
+      // if a Button already has Class: .active
+      if (isCertainButtonAlreadyActive) {
+        isCertainButtonAlreadyActive.classList.remove('active');
+      }
+
+      clickedElement.className += ' active';
+      this.searchFilter = [];
+      const value = clickedElement.value;
+      this.searchFilter.push(value);
+    }
+  }
+
+  byteSize(field) {
+    return this.dataUtils.byteSize(field);
+  }
+
+  openFile(contentType, field) {
+    return this.dataUtils.openFile(contentType, field);
   }
 
   protected paginateBoxers(data: IBoxer[], headers: HttpHeaders) {

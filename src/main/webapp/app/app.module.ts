@@ -53,6 +53,7 @@ import { ErrorComponent } from './layouts/error/error.component';
       multi: true
     }
   ],
-  bootstrap: [JhiMainComponent]
+  bootstrap: [JhiMainComponent],
+  exports: []
 })
 export class BoxingAppModule {}
