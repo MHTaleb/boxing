@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { HttpErrorResponse, HttpHeaders, HttpResponse } from '@angular/common/http';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 import { filter, map } from 'rxjs/operators';
@@ -10,40 +11,37 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
-import { PictureService } from '../picture/picture.service';
-import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-boxer',
   templateUrl: './boxer.component.html'
 })
 export class BoxerComponent implements OnInit, OnDestroy {
-  boxers: IBoxer[];
   currentAccount: any;
+  boxers: IBoxer[];
+  error: any;
+  success: any;
   eventSubscriber: Subscription;
-  itemsPerPage: number;
+  routeData: any;
   links: any;
+  totalItems: any;
+  itemsPerPage: any;
   page: any;
   predicate: any;
   previousPage: any;
   reverse: any;
-  routeData: any;
-  totalItems: number;
   searchFilter: any[];
-  searchValue: any;
 
   constructor(
     protected boxerService: BoxerService,
-    protected jhiAlertService: JhiAlertService,
-    protected eventManager: JhiEventManager,
     protected parseLinks: JhiParseLinks,
-    protected activatedRoute: ActivatedRoute,
+    protected jhiAlertService: JhiAlertService,
     protected accountService: AccountService,
-    protected pictureService: PictureService,
+    protected activatedRoute: ActivatedRoute,
     protected router: Router,
-    protected dataUtils: JhiDataUtils
+    protected dataUtils: JhiDataUtils,
+    protected eventManager: JhiEventManager
   ) {
-    this.boxers = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -51,20 +49,12 @@ export class BoxerComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
-    this.page = 0;
-    this.links = {
-      last: 0
-    };
-    this.predicate = 'id';
-    this.reverse = true;
-    this.searchFilter = [];
-    this.searchFilter.push('fullName');
   }
 
   loadAll() {
     this.boxerService
       .query({
-        page: this.page,
+        page: this.page - 1,
         size: this.itemsPerPage,
         sort: this.sort()
       })
@@ -73,22 +63,14 @@ export class BoxerComponent implements OnInit, OnDestroy {
         (res: HttpErrorResponse) => this.onError(res.message)
       );
   }
-  clear() {
-    this.page = 0;
-    this.router.navigate([
-      '/boxer',
-      {
-        page: this.page,
-        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
-      }
-    ]);
-    this.loadAll();
+
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
   }
-  reset() {
-    this.page = 0;
-    this.boxers = [];
-    this.loadAll();
-  }
+
   transition() {
     this.router.navigate(['/boxer'], {
       queryParams: {
@@ -99,11 +81,17 @@ export class BoxerComponent implements OnInit, OnDestroy {
     });
     this.loadAll();
   }
-  loadPage(page: number) {
-    if (page !== this.previousPage) {
-      this.previousPage = page;
-      this.transition();
-    }
+
+  clear() {
+    this.page = 0;
+    this.router.navigate([
+      '/boxer',
+      {
+        page: this.page,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    ]);
+    this.loadAll();
   }
 
   ngOnInit() {
@@ -123,7 +111,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   }
 
   registerChangeInBoxers() {
-    this.eventSubscriber = this.eventManager.subscribe('boxerListModification', response => this.reset());
+    this.eventSubscriber = this.eventManager.subscribe('boxerListModification', response => this.loadAll());
   }
 
   sort() {
@@ -133,6 +121,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     }
     return result;
   }
+
   onButtonGroupClick($event) {
     const clickedElement = $event.target || $event.srcElement;
 
@@ -161,9 +150,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   protected paginateBoxers(data: IBoxer[], headers: HttpHeaders) {
     this.links = this.parseLinks.parse(headers.get('link'));
     this.totalItems = parseInt(headers.get('X-Total-Count'), 10);
-    for (let i = 0; i < data.length; i++) {
-      this.boxers.push(data[i]);
-    }
+    this.boxers = data;
   }
 
   protected onError(errorMessage: string) {
