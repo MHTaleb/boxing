@@ -19,6 +19,7 @@ const ENTITY_STATES = [...pictureRoute, ...picturePopupRoute];
     PictureDeleteDialogComponent,
     PictureDeletePopupComponent
   ],
+  exports: [PictureUpdateComponent],
   entryComponents: [PictureDeleteDialogComponent]
 })
 export class BoxingPictureModule {}

@@ -43,8 +43,7 @@ relationship ManyToMany{
 }
 
 // Set pagination options
-paginate Boxer, Trainer with infinite-scroll
-paginate Picture, Lesson with pagination
+paginate * with pagination
 
 // Use Data Transfert Objects (DTO)
 // dto * with mapstruct
