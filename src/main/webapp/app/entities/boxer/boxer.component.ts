@@ -31,6 +31,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   previousPage: any;
   reverse: any;
   searchFilter: any[];
+  searchValue: any;
 
   constructor(
     protected boxerService: BoxerService,
@@ -49,6 +50,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
       this.reverse = data.pagingParams.ascending;
       this.predicate = data.pagingParams.predicate;
     });
+    this.searchFilter = [];
+    this.searchFilter.push('fullName');
   }
 
   loadAll() {
