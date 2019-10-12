@@ -103,11 +103,15 @@
       "delete": "Supprimer",
       "open": "Ouvrir",
       "save": "Sauvegarder",
-      "view": "Voir"
+      "view": "Voir",
+      "print": "Imprimer"
     },
     "detail": {
       "field": "Champs",
       "value": "Valeur"
+    },
+    "print": {
+      "title": "Aperçu avant impression"
     },
     "delete": {
       "title": "Confirmation de suppression"

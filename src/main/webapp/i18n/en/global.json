@@ -103,11 +103,15 @@
       "edit": "Edit",
       "open": "Open",
       "save": "Save",
-      "view": "View"
+      "view": "View",
+      "print": "Print"
     },
     "detail": {
       "field": "Field",
       "value": "Value"
+    },
+    "print": {
+      "title": "Print preview"
     },
     "delete": {
       "title": "Confirm delete operation"
