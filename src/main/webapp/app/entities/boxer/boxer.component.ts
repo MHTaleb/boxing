@@ -45,7 +45,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     protected dataUtils: JhiDataUtils
   ) {
     this.boxers = [];
-    this.itemsPerPage = ITEMS_PER_PAGE;
+    this.itemsPerPage = 100;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
