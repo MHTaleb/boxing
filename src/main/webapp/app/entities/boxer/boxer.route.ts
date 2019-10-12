@@ -11,6 +11,7 @@ import { BoxerDetailComponent } from './boxer-detail.component';
 import { BoxerUpdateComponent } from './boxer-update.component';
 import { BoxerDeletePopupComponent } from './boxer-delete-dialog.component';
 import { IBoxer } from 'app/shared/model/boxer.model';
+import { BoxerPrintPopupComponent } from './boxer-print-dialogue.component';
 
 @Injectable({ providedIn: 'root' })
 export class BoxerResolve implements Resolve<IBoxer> {
@@ -19,6 +20,22 @@ export class BoxerResolve implements Resolve<IBoxer> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IBoxer> {
     const id = route.params['id'];
     if (id) {
+      return this.service.find(id).pipe(
+        filter((response: HttpResponse<Boxer>) => response.ok),
+        map((boxer: HttpResponse<Boxer>) => boxer.body)
+      );
+    }
+    return of(new Boxer());
+  }
+}
+@Injectable({ providedIn: 'root' })
+export class BoxersResolve implements Resolve<IBoxer[]> {
+  constructor(private service: BoxerService) {}
+
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IBoxer> {
+    const search = route.params['search'];
+    const filter = route.params['filter'];
+    if (search && filter) {
       return this.service.find(id).pipe(
         filter((response: HttpResponse<Boxer>) => response.ok),
         map((boxer: HttpResponse<Boxer>) => boxer.body)
@@ -86,6 +103,19 @@ export const boxerPopupRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'boxingApp.boxer.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  },
+  {
+    path: ':search/:filter/print',
+    component: BoxerPrintPopupComponent,
+    resolve: {
+      boxers: BoxersResolve
+    },
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'boxingApp.boxer.home.print'
     },
     canActivate: [UserRouteAccessService],
     outlet: 'popup'
