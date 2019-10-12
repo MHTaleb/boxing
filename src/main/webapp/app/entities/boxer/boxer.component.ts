@@ -11,6 +11,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
 import { PictureService } from '../picture/picture.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'jhi-boxer',
@@ -24,7 +25,9 @@ export class BoxerComponent implements OnInit, OnDestroy {
   links: any;
   page: any;
   predicate: any;
+  previousPage: any;
   reverse: any;
+  routeData: any;
   totalItems: number;
   searchFilter: any;
   searchValue: any;
@@ -35,12 +38,20 @@ export class BoxerComponent implements OnInit, OnDestroy {
     protected jhiAlertService: JhiAlertService,
     protected eventManager: JhiEventManager,
     protected parseLinks: JhiParseLinks,
+    protected activatedRoute: ActivatedRoute,
     protected accountService: AccountService,
     protected pictureService: PictureService,
+    protected router: Router,
     protected dataUtils: JhiDataUtils
   ) {
     this.boxers = [];
     this.itemsPerPage = ITEMS_PER_PAGE;
+    this.routeData = this.activatedRoute.data.subscribe(data => {
+      this.page = data.pagingParams.page;
+      this.previousPage = data.pagingParams.page;
+      this.reverse = data.pagingParams.ascending;
+      this.predicate = data.pagingParams.predicate;
+    });
     this.page = 0;
     this.links = {
       last: 0
@@ -95,10 +106,21 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.boxers = [];
     this.loadAll();
   }
-
-  loadPage(page) {
-    this.page = page;
+  transition() {
+    this.router.navigate(['/boxer'], {
+      queryParams: {
+        page: this.page,
+        size: this.itemsPerPage,
+        sort: this.predicate + ',' + (this.reverse ? 'asc' : 'desc')
+      }
+    });
     this.loadAll();
+  }
+  loadPage(page: number) {
+    if (page !== this.previousPage) {
+      this.previousPage = page;
+      this.transition();
+    }
   }
 
   ngOnInit() {
