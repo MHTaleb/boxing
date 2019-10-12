@@ -2,6 +2,7 @@ package com.boxing.maghnia.web.rest;
 
 import com.boxing.maghnia.domain.Boxer;
 import com.boxing.maghnia.service.BoxerService;
+import com.boxing.maghnia.service.dto.BoxerSearch;
 import com.boxing.maghnia.web.rest.errors.BadRequestAlertException;
 
 import io.github.jhipster.web.util.HeaderUtil;
@@ -99,6 +100,25 @@ public class BoxerResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+    
+    /**
+     * {@code GET  /boxers} : get all the boxers with search criteria.
+     *
+
+     * @param pageable the pagination information.
+     * @param searchCriteria the search criteria pojo
+
+     * @return the {@link ResponseEntity} with status {@code 200 (OK)} and the list of boxers in body.
+     */
+    @GetMapping("/boxers/search")
+    public ResponseEntity<List<Boxer>> searchAllBoxers( Pageable pageable ,BoxerSearch searchCriteria) {
+        log.debug("REST request to get a page of Boxers with search {}",searchCriteria);
+        Page<Boxer> page = boxerService.FindAllByFiltering(pageable, searchCriteria);
+        HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
+        return ResponseEntity.ok().headers(headers).body(page.getContent());
+    }
+    
+    
 
     /**
      * {@code GET  /boxers/:id} : get the "id" boxer.

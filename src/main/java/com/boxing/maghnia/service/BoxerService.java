@@ -1,6 +1,7 @@
 package com.boxing.maghnia.service;
 
 import com.boxing.maghnia.domain.Boxer;
+import com.boxing.maghnia.service.dto.BoxerSearch;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -28,6 +29,15 @@ public interface BoxerService {
      */
     Page<Boxer> findAll(Pageable pageable);
 
+    
+    /**
+     * Get all the boxers with specific search creteria based on filter and value
+     *
+     * @param pageable the pagination information.
+     * @param searchCriteria the search creteria pojo
+     * @return the list of entities.
+     */
+    Page<Boxer> FindAllByFiltering(Pageable pageable, BoxerSearch searchCriteria);
 
     /**
      * Get the "id" boxer.

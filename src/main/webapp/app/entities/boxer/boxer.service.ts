@@ -16,7 +16,7 @@ type EntityArrayResponseType = HttpResponse<IBoxer[]>;
 @Injectable({ providedIn: 'root' })
 export class BoxerService {
   public resourceUrl = SERVER_API_URL + 'api/boxers';
-
+  public _searchURL = '/search';
   constructor(protected http: HttpClient) {}
 
   create(boxer: IBoxer): Observable<EntityResponseType> {
@@ -39,10 +39,14 @@ export class BoxerService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any, path?: any): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
+    let requestUrl = this.resourceUrl;
+    if (path) {
+      requestUrl += path;
+    }
     return this.http
-      .get<IBoxer[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<IBoxer[]>(requestUrl, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

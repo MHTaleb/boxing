@@ -26,7 +26,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   predicate: any;
   reverse: any;
   totalItems: number;
-  searchFilter: any[];
+  searchFilter: any;
   searchValue: any;
 
   constructor(
@@ -46,8 +46,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     };
     this.predicate = 'id';
     this.reverse = true;
-    this.searchFilter = [];
-    this.searchFilter.push('fullName');
+    this.searchFilter = 'fullName';
   }
 
   loadAll() {
@@ -61,6 +60,29 @@ export class BoxerComponent implements OnInit, OnDestroy {
         (res: HttpResponse<IBoxer[]>) => this.paginateBoxers(res.body, res.headers),
         (res: HttpErrorResponse) => this.onError(res.message)
       );
+  }
+
+  search() {
+    this.boxers = [];
+    if (this.searchValue) {
+      this.boxerService
+        .query(
+          {
+            value: this.searchValue,
+            filter: this.searchFilter,
+            page: this.page,
+            size: this.itemsPerPage,
+            sort: this.sort()
+          },
+          this.boxerService._searchURL
+        )
+        .subscribe(
+          (res: HttpResponse<IBoxer[]>) => this.paginateBoxers(res.body, res.headers),
+          (res: HttpErrorResponse) => this.onError(res.message)
+        );
+    } else {
+      this.loadAll();
+    }
   }
 
   reset() {
@@ -112,9 +134,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
       }
 
       clickedElement.className += ' active';
-      this.searchFilter = [];
-      const value = clickedElement.value;
-      this.searchFilter.push(value);
+
+      this.searchFilter = clickedElement.value;
     }
   }
 

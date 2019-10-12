@@ -52,8 +52,10 @@
             </table>
 
             <!-- search filter-->
-            <input type="text" class="form-control border-secondary table-primary focus-secondary  "
-                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" [(ngModel)]="searchValue">
+            <input *ngIf="searchFilter !== 'birthDate' " type="text" class="form-control border-secondary table-primary focus-secondary  "
+                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
+            <input *ngIf="searchFilter === 'birthDate' " type="date" class="form-control border-secondary table-primary focus-secondary  "
+                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
             <div class="input-group-append mr-2" (click)="onButtonGroupClick($event)">
                 <button class="btn btn btn-outline-secondary active" type="button"
                     jhiTranslate="boxingApp.boxer.fullName" value="fullName">FullName</button>
@@ -66,7 +68,7 @@
 
         <div class="row ml-1">
 
-            <div *ngFor="let boxer of boxers | filterBy: searchFilter : searchValue;trackBy: trackId"
+            <div *ngFor="let boxer of boxers ;trackBy: trackId"
                 class="card mx-1 mb-1" style="width: 23rem;">
 
                 <div class="mt-auto">
