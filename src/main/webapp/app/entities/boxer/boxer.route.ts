@@ -28,22 +28,6 @@ export class BoxerResolve implements Resolve<IBoxer> {
     return of(new Boxer());
   }
 }
-@Injectable({ providedIn: 'root' })
-export class BoxersResolve implements Resolve<IBoxer[]> {
-  constructor(private service: BoxerService) {}
-
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<IBoxer> {
-    const search = route.params['search'];
-    const filter = route.params['filter'];
-    if (search && filter) {
-      return this.service.find(id).pipe(
-        filter((response: HttpResponse<Boxer>) => response.ok),
-        map((boxer: HttpResponse<Boxer>) => boxer.body)
-      );
-    }
-    return of(new Boxer());
-  }
-}
 
 export const boxerRoute: Routes = [
   {
@@ -108,11 +92,8 @@ export const boxerPopupRoute: Routes = [
     outlet: 'popup'
   },
   {
-    path: ':search/:filter/print',
+    path: '/print',
     component: BoxerPrintPopupComponent,
-    resolve: {
-      boxers: BoxersResolve
-    },
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'boxingApp.boxer.home.print'

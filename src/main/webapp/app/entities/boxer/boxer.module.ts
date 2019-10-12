@@ -8,7 +8,7 @@ import { BoxerUpdateComponent } from './boxer-update.component';
 import { BoxerDeletePopupComponent, BoxerDeleteDialogComponent } from './boxer-delete-dialog.component';
 import { boxerRoute, boxerPopupRoute } from './boxer.route';
 import { FilterByPipe } from 'ngx-pipes';
-import { BoxerPrintDialogueComponent } from './boxer-print-dialogue.component';
+import { BoxerPrintDialogueComponent, BoxerPrintPopupComponent } from './boxer-print-dialogue.component';
 
 const ENTITY_STATES = [...boxerRoute, ...boxerPopupRoute];
 
@@ -21,8 +21,9 @@ const ENTITY_STATES = [...boxerRoute, ...boxerPopupRoute];
     BoxerUpdateComponent,
     BoxerDeleteDialogComponent,
     BoxerDeletePopupComponent,
-    BoxerPrintDialogueComponent
+    BoxerPrintDialogueComponent,
+    BoxerPrintPopupComponent
   ],
-  entryComponents: [BoxerDeleteDialogComponent]
+  entryComponents: [BoxerDeleteDialogComponent, BoxerPrintDialogueComponent]
 })
 export class BoxingBoxerModule {}

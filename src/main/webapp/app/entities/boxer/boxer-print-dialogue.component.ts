@@ -21,10 +21,11 @@ export class BoxerPrintDialogueComponent implements OnInit {
 
   print() {
     alert(document.getElementById('print-content').innerHTML);
+    alert(JSON.stringify(this.boxers));
 
     this.eventManager.broadcast({
-      name: 'boxerListModification',
-      content: 'Deleted an boxer'
+      name: 'boxerListPrint',
+      content: 'Printed Boxers'
     });
     this.activeModal.dismiss(true);
   }
@@ -39,13 +40,18 @@ export class BoxerPrintDialogueComponent implements OnInit {
 export class BoxerPrintPopupComponent implements OnInit, OnDestroy {
   protected ngbModalRef: NgbModalRef;
 
-  constructor(protected activatedRoute: ActivatedRoute, protected router: Router, protected modalService: NgbModal) {}
+  constructor(
+    protected boxerService: BoxerService,
+    protected activatedRoute: ActivatedRoute,
+    protected router: Router,
+    protected modalService: NgbModal
+  ) {}
 
   ngOnInit() {
     this.activatedRoute.data.subscribe(({ boxers }) => {
       setTimeout(() => {
-        this.ngbModalRef = this.modalService.open(BoxerPrintPopupComponent as Component, { size: 'lg', backdrop: 'static' });
-        this.ngbModalRef.componentInstance.boxers = boxers;
+        this.ngbModalRef = this.modalService.open(BoxerPrintDialogueComponent as Component, { size: 'lg', backdrop: 'static' });
+        this.ngbModalRef.componentInstance.boxers = this.boxerService.boxers;
         this.ngbModalRef.result.then(
           result => {
             this.router.navigate(['/boxer', { outlets: { popup: null } }]);

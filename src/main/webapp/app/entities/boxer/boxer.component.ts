@@ -28,6 +28,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   totalItems: number;
   searchFilter: any;
   searchValue: any;
+  printValue: any;
 
   constructor(
     protected boxerService: BoxerService,
@@ -47,6 +48,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.predicate = 'id';
     this.reverse = true;
     this.searchFilter = 'fullName';
+    this.searchValue = '';
+    this.printValue = '';
   }
 
   loadAll() {
@@ -65,6 +68,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   search() {
     this.boxers = [];
     if (this.searchValue) {
+      this.printValue = this.searchValue;
       this.boxerService
         .query(
           {
@@ -81,6 +85,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
           (res: HttpErrorResponse) => this.onError(res.message)
         );
     } else {
+      this.printValue = '';
       this.loadAll();
     }
   }
