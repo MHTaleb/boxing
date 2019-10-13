@@ -22,7 +22,7 @@
     "changelogDate": "20191002233050",
     "entityTableName": "versement",
     "dto": "no",
-    "pagination": "no",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

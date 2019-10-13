@@ -25,7 +25,7 @@
             <table class="table " style="border: hidden; float:right;" aria-describedby="page-heading">
                 <thead style="border: hidden;">
                     <tr jhiSort style="border: hidden;     float: right;" [(predicate)]="predicate"
-                        [(ascending)]="reverse" [callback]="reset.bind(this)">
+                        [(ascending)]="reverse" [callback]="clear.bind(this)">
                         <th style="border: hidden;"><span>Order By : </span>
                         </th>
                         <th style="border: hidden;" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>

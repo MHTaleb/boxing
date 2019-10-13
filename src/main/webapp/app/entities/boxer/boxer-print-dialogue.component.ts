@@ -21,7 +21,7 @@ export class BoxerPrintDialogueComponent implements OnInit {
 
   print() {
     alert(document.getElementById('print-content').innerHTML);
-    alert(JSON.stringify(this.boxers));
+    alert(this.boxers.length);
 
     this.eventManager.broadcast({
       name: 'boxerListPrint',
