@@ -104,7 +104,8 @@
       "open": "Ouvrir",
       "save": "Sauvegarder",
       "view": "Voir",
-      "print": "Imprimer"
+      "print": "Imprimante",
+      "printAll": "Imprimer Tout"
     },
     "detail": {
       "field": "Champs",

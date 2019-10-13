@@ -45,7 +45,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this.boxers = [];
-    this.itemsPerPage = 5;
+    this.itemsPerPage = 12;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
@@ -80,6 +80,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.boxers = [];
     if (this.searchValue) {
       this.printValue = this.searchValue;
+
       this.boxerService
         .query(
           {
@@ -99,6 +100,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
       this.printValue = '';
       this.loadAll();
     }
+    this.boxerService.value = this.printValue;
+    this.boxerService.filter = this.searchFilter;
   }
 
   reset() {
