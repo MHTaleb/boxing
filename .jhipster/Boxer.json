@@ -27,7 +27,7 @@
     "changelogDate": "20191001153112",
     "entityTableName": "boxer",
     "dto": "no",
-    "pagination": "infinite-scroll",
+    "pagination": "pagination",
     "service": "serviceImpl",
     "jpaMetamodelFiltering": false,
     "fluentMethods": true,

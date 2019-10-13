@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpResponse } from '@angular/common/http';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot, Routes } from '@angular/router';
+import { JhiResolvePagingParams } from 'ng-jhipster';
 import { UserRouteAccessService } from 'app/core/auth/user-route-access-service';
 import { Observable, of } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
@@ -11,6 +12,7 @@ import { BoxerDetailComponent } from './boxer-detail.component';
 import { BoxerUpdateComponent } from './boxer-update.component';
 import { BoxerDeletePopupComponent } from './boxer-delete-dialog.component';
 import { IBoxer } from 'app/shared/model/boxer.model';
+import { BoxerPrintPopupComponent } from './boxer-print-dialogue.component';
 
 @Injectable({ providedIn: 'root' })
 export class BoxerResolve implements Resolve<IBoxer> {
@@ -32,8 +34,12 @@ export const boxerRoute: Routes = [
   {
     path: '',
     component: BoxerComponent,
+    resolve: {
+      pagingParams: JhiResolvePagingParams
+    },
     data: {
       authorities: ['ROLE_USER'],
+      defaultSort: 'id,asc',
       pageTitle: 'boxingApp.boxer.home.title'
     },
     canActivate: [UserRouteAccessService]
@@ -86,6 +92,16 @@ export const boxerPopupRoute: Routes = [
     data: {
       authorities: ['ROLE_USER'],
       pageTitle: 'boxingApp.boxer.home.title'
+    },
+    canActivate: [UserRouteAccessService],
+    outlet: 'popup'
+  },
+  {
+    path: '/print',
+    component: BoxerPrintPopupComponent,
+    data: {
+      authorities: ['ROLE_USER'],
+      pageTitle: 'boxingApp.boxer.home.print'
     },
     canActivate: [UserRouteAccessService],
     outlet: 'popup'

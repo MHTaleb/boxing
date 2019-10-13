@@ -15,6 +15,7 @@ type EntityArrayResponseType = HttpResponse<IBoxer[]>;
 
 @Injectable({ providedIn: 'root' })
 export class BoxerService {
+  public boxers: IBoxer[];
   public resourceUrl = SERVER_API_URL + 'api/boxers';
   public _searchURL = '/search';
   constructor(protected http: HttpClient) {}
@@ -74,6 +75,7 @@ export class BoxerService {
         boxer.birthDate = boxer.birthDate != null ? moment(boxer.birthDate) : null;
       });
     }
+    this.boxers = res.body;
     return res;
   }
 }

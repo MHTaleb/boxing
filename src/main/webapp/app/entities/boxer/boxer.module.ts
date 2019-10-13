@@ -7,20 +7,21 @@ import { BoxerDetailComponent } from './boxer-detail.component';
 import { BoxerUpdateComponent } from './boxer-update.component';
 import { BoxerDeletePopupComponent, BoxerDeleteDialogComponent } from './boxer-delete-dialog.component';
 import { boxerRoute, boxerPopupRoute } from './boxer.route';
-import { FilterByPipe } from 'ngx-pipes';
+import { BoxerPrintDialogueComponent, BoxerPrintPopupComponent } from './boxer-print-dialogue.component';
 
 const ENTITY_STATES = [...boxerRoute, ...boxerPopupRoute];
 
 @NgModule({
   imports: [BoxingSharedModule, RouterModule.forChild(ENTITY_STATES)],
   declarations: [
-    FilterByPipe,
     BoxerComponent,
     BoxerDetailComponent,
     BoxerUpdateComponent,
     BoxerDeleteDialogComponent,
-    BoxerDeletePopupComponent
+    BoxerDeletePopupComponent,
+    BoxerPrintDialogueComponent,
+    BoxerPrintPopupComponent
   ],
-  entryComponents: [BoxerDeleteDialogComponent]
+  entryComponents: [BoxerDeleteDialogComponent, BoxerPrintDialogueComponent]
 })
 export class BoxingBoxerModule {}

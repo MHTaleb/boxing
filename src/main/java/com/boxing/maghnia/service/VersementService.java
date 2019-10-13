@@ -2,7 +2,9 @@ package com.boxing.maghnia.service;
 
 import com.boxing.maghnia.domain.Versement;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 
 /**
@@ -21,9 +23,10 @@ public interface VersementService {
     /**
      * Get all the versements.
      *
+     * @param pageable the pagination information.
      * @return the list of entities.
      */
-    List<Versement> findAll();
+    Page<Versement> findAll(Pageable pageable);
 
 
     /**

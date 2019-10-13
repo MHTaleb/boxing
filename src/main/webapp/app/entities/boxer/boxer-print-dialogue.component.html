@@ -1,0 +1,18 @@
+<form name="deleteForm" (ngSubmit)="print()">
+    <div class="modal-header">
+        <h4 class="modal-title" jhiTranslate="entity.print.title">Printing Boxers Preview</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
+                (click)="clear()">&times;</button>
+    </div>
+    <div class="modal-body" id="print-content">
+        <jhi-alert-error></jhi-alert-error>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
+            <fa-icon [icon]="'ban'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Cancel</span>
+        </button>
+        <button id="jhi-confirm-delete-boxer" type="submit" class="btn btn-danger">
+            <fa-icon [icon]="'print'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.print">Delete</span>
+        </button>
+    </div>
+</form>

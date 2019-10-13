@@ -31,7 +31,7 @@ public class Boxer implements Serializable {
     @Column(name = "phone")
     private String phone;
 
-    @OneToOne
+    @OneToOne(orphanRemoval = true)
     @JoinColumn(unique = true)
     private Picture picture;
 

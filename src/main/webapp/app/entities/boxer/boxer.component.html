@@ -18,14 +18,14 @@
         <span jhiTranslate="boxingApp.boxer.home.notFound">No boxers found</span>
     </div>
 
-    <div  *ngIf="boxers?.length > 0">
+    <div>
 
         <div class="input-group  mb-2 pl-2   ">
             <!-- ordering filter-->
             <table class="table " style="border: hidden; float:right;" aria-describedby="page-heading">
                 <thead style="border: hidden;">
                     <tr jhiSort style="border: hidden;     float: right;" [(predicate)]="predicate"
-                        [(ascending)]="reverse" [callback]="reset.bind(this)">
+                        [(ascending)]="reverse" [callback]="clear.bind(this)">
                         <th style="border: hidden;"><span>Order By : </span>
                         </th>
                         <th style="border: hidden;" jhiSortBy="id"><span jhiTranslate="global.field.id">ID</span>
@@ -51,6 +51,13 @@
                 </thead>
             </table>
 
+
+            <button type="submit" [routerLink]="['/boxer', { outlets: { popup:'/print'} }]"
+                replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
+                <fa-icon [icon]="'print'"></fa-icon>
+                <span class="d-none d-md-inline" jhiTranslate="entity.action.print">Print</span>
+            </button>
+
             <!-- search filter-->
             <input *ngIf="searchFilter !== 'birthDate' " type="text" class="form-control border-secondary table-primary focus-secondary  "
                 placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
@@ -66,7 +73,7 @@
             </div>
         </div>
 
-        <div class="row ml-1">
+        <div  *ngIf="boxers?.length > 0" class="row ml-1">
 
             <div *ngFor="let boxer of boxers ;trackBy: trackId"
                 class="card mx-1 mb-1" style="width: 23rem;">
@@ -113,6 +120,15 @@
 
             </div>
 
+        </div>
+    </div>
+    <div [hidden]="lessons?.length === 0">
+        <div class="row justify-content-center">
+            <jhi-item-count [page]="page" [total]="totalItems" [itemsPerPage]="itemsPerPage"></jhi-item-count>
+        </div>
+        <div class="row justify-content-center">
+            <ngb-pagination [collectionSize]="totalItems" [(page)]="page" [pageSize]="itemsPerPage" [maxSize]="5"
+                [rotate]="true" [boundaryLinks]="true" (pageChange)="loadPage(page)"></ngb-pagination>
         </div>
     </div>
 </div>
