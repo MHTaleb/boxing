@@ -8,6 +8,8 @@ import { BoxerUpdateComponent } from './boxer-update.component';
 import { BoxerDeletePopupComponent, BoxerDeleteDialogComponent } from './boxer-delete-dialog.component';
 import { boxerRoute, boxerPopupRoute } from './boxer.route';
 import { BoxerPrintDialogueComponent, BoxerPrintPopupComponent } from './boxer-print-dialogue.component';
+import { PrintBoxeurCardComponent } from './print-boxeur-card/print-boxeur-card.component';
+import { PrintBoxeurListComponent } from './print-boxeur-list/print-boxeur-list.component';
 
 const ENTITY_STATES = [...boxerRoute, ...boxerPopupRoute];
 
@@ -20,7 +22,9 @@ const ENTITY_STATES = [...boxerRoute, ...boxerPopupRoute];
     BoxerDeleteDialogComponent,
     BoxerDeletePopupComponent,
     BoxerPrintDialogueComponent,
-    BoxerPrintPopupComponent
+    BoxerPrintPopupComponent,
+    PrintBoxeurCardComponent,
+    PrintBoxeurListComponent
   ],
   entryComponents: [BoxerDeleteDialogComponent, BoxerPrintDialogueComponent]
 })

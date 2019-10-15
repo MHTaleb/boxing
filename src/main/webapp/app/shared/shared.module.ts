@@ -5,12 +5,14 @@ import { JhiAlertComponent } from './alert/alert.component';
 import { JhiAlertErrorComponent } from './alert/alert-error.component';
 import { JhiLoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
+import { NgxBarcodeModule, NgxBarcodeComponent } from 'ngx-barcode';
 
 @NgModule({
-  imports: [BoxingSharedLibsModule],
+  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot()],
   declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
   exports: [
+    NgxBarcodeComponent,
     BoxingSharedLibsModule,
     FindLanguageFromKeyPipe,
     JhiAlertComponent,

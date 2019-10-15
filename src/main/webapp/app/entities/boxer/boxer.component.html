@@ -59,9 +59,8 @@
                         <span class="d-none d-md-inline mx-1" jhiTranslate="entity.action.print">Print</span>
                     </button>
                     <div class="dropdown-menu" ngbDropdownMenu>
-                        <button ngbDropdownItem type="submit"
-                            [routerLink]="['/boxer', { outlets: { popup:'/print'} }]" replaceUrl="true"
-                            queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
+                        <button ngbDropdownItem type="submit" replaceUrl="true" queryParamsHandling="merge"
+                            (click)="print()" class="btn btn-outline-danger btn-sm">
                             <fa-icon [icon]="'print'"></fa-icon>
                             <span class="d-none d-md-inline" jhiTranslate="entity.action.printAll">Print All</span>
                         </button>
@@ -114,6 +113,13 @@
 
                     </ul>
                     <div class="card-body">
+
+                        <button replaceUrl="true" queryParamsHandling="merge" (click)="print(card,boxer)"
+                            class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'credit-card'"></fa-icon>
+                            <span class="d-none d-md-inline">print card</span>
+                        </button>
+
                         <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
                             class="btn btn-outline-success btn-sm">
                             <fa-icon [icon]="'eye'"></fa-icon>

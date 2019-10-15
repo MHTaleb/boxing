@@ -11,6 +11,7 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
+import { BoxerPrintService } from './boxer-print.service';
 
 @Component({
   selector: 'jhi-boxer',
@@ -33,8 +34,10 @@ export class BoxerComponent implements OnInit, OnDestroy {
   searchFilter: any;
   searchValue: any;
   printValue: any;
+  card: any;
 
   constructor(
+    protected printService: BoxerPrintService,
     protected boxerService: BoxerService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -61,6 +64,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.searchFilter = 'fullName';
     this.searchValue = '';
     this.printValue = '';
+    this.card = this.printService.PRINT_CARD;
   }
 
   loadAll() {
@@ -138,6 +142,13 @@ export class BoxerComponent implements OnInit, OnDestroy {
       }
     ]);
     this.loadAll();
+  }
+
+  print(operation?: string, data?: any) {
+    const printOperation = operation ? operation : this.printService.PRINT_ALL;
+    if (data) this.printService.data = data;
+    this.printService.setOperation(printOperation);
+    this.router.navigate(['/boxer', { outlets: { popup: '/print' } }]);
   }
 
   ngOnInit() {

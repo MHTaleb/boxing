@@ -1,0 +1,34 @@
+<div style="padding-left: 2rem;" *ngIf="boxer" class="row">
+
+    <section>
+
+        <div class="container py-3">
+            
+            <div class="card p-1">
+                <div class="row ">
+                    <div class="col-4">
+                        <img style="width: 181px;height: 181px;margin-left: 5px;margin-top:8px;" *ngIf="boxer.picture?.img" [src]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img" class="w-100">
+                    </div>
+                    <div class="col-7 px-3">
+                        <div style="height: 181px;margin-top: 8px" class="card-block px-3">
+                            <h4 class="card-title">Carte Adherant</h4>
+                            <p class="card-text"><strong> full name : </strong> {{boxer.fullName}} </p>
+                            <p class="card-text"><strong> birth date : </strong> {{boxer.birthDate | date : short}} </p>
+                            <p class="card-text"><strong> phone number : </strong> {{boxer.phone}} </p>
+                            <p class="card-text"><strong> categorie : </strong> {{categorie}} </p>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                            <div class=" rotate " style="height: 17px">
+                                    <ngx-barcode  [bc-value]="1024" [bc-width]="3" [bc-height]="50" [bc-display-value]="false"></ngx-barcode>
+                              </div>
+                           
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+</div>
+</section>
+
+</div>

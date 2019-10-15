@@ -168,4 +168,12 @@ ui bootstrap tweaks
   -webkit-box-shadow: 0 0 0 0.2rem rgba(55, 58, 60, 0.5);
   box-shadow: 0 0 0 0.2rem rgba(55, 58, 60, 0.5);
 }
+
+.rotate {
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
 /* jhipster-needle-scss-add-main JHipster will add new css style */
