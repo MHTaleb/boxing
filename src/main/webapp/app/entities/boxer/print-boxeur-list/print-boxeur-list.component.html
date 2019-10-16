@@ -1,26 +1,31 @@
-<h3> Liste Global des Adérant </h3>
-<table class="table table-striped table-hover mx-4 mt-4 mb-3 " style="user-select: auto;">
-    <thead class="mr-3" style="user-select: auto;">
-        <tr class="mr-3" style="user-select: auto;">
+<div>
 
-            <th scope="col" style="user-select: auto;">#</th>
+    <img style="float: right; max-width: 90px;" src="../../../../content/images/logo.png" />
+    <br><br>
+    <h3> Liste Global des Adérant </h3>
+</div>
+<table class="table table-striped table-hover " style="user-select: auto;">
+    <thead style="display: table-header-group;" >
+        <tr >
 
-            <th scope="col" style="user-select: auto;">
+            <th scope="col" >#</th>
+
+            <th scope="col" >
                 <span jhiTranslate="boxingApp.boxer.fullName">FullName</span>
             </th>
 
-            <th scope="col" style="user-select: auto;">
+            <th scope="col">
                 <span jhiTranslate="boxingApp.boxer.birthDate">Birth Date</span>
             </th>
 
-            <th scope="col" style="user-select: auto;">
+            <th scope="col" >
                 <span jhiTranslate="boxingApp.boxer.phone">Phone</span>
             </th>
 
         </tr>
     </thead>
-    <tbody class="mr-3" style="user-select: auto;">
-        <tr class="mr-3" *ngFor="let boxer of boxers; let i = index ;trackBy: trackId" style="user-select: auto;">
+    <tbody style="user-select: auto;">
+        <tr *ngFor="let boxer of boxers; let i = index ;trackBy: trackId" style="user-select: auto;">
             <th scope="row" style="user-select: auto;">{{i}}</th>
             <th scope="row" style="user-select: auto;">{{boxer.fullName}}</th>
             <td style="user-select: auto;">{{boxer.birthDate | date:'shortDate'}}</td>
@@ -28,6 +33,7 @@
         </tr>
     </tbody>
 </table>
-<br>
-<h5 class="ml-2"> Nombre total d'aderant : {{nbr}}<span style=" padding-left: 16rem;">déliveré le
-        {{curDate | date:'shortDate'}}</span></h5>
+<div class="h5 ">
+    <p class="float-right">- Nombre total d'aderant : {{nbr}}. <span style="color: transparent;">kkk</span></p>&#9;&#9;&#9;&#9;<p>- déliveré le
+        {{curDate | date:'shortDate'}}</p>
+</div>
