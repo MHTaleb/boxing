@@ -6,14 +6,16 @@ import { JhiAlertErrorComponent } from './alert/alert-error.component';
 import { JhiLoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { NgxBarcodeModule, NgxBarcodeComponent } from 'ngx-barcode';
+import { LazyLoadImageModule } from 'ng-lazyload-image';
 
 @NgModule({
-  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot()],
+  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot(), LazyLoadImageModule],
   declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
   exports: [
     NgxBarcodeComponent,
     BoxingSharedLibsModule,
+    LazyLoadImageModule,
     FindLanguageFromKeyPipe,
     JhiAlertComponent,
     JhiAlertErrorComponent,
