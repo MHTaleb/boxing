@@ -37,6 +37,8 @@
     "enableTranslation": true,
     "nativeLanguage": "fr",
     "languages": ["fr", "ar-ly", "en"],
-    "blueprints": []
+    "blueprints": [],
+    "herokuAppName": "boxing",
+    "herokuDeployType": "jar"
   }
 }

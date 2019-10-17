@@ -2,25 +2,25 @@
   "boxingApp": {
     "boxer": {
       "home": {
-        "title": "Boxers",
-        "createLabel": "Create a new Boxer",
-        "createOrEditLabel": "Create or edit a Boxer",
-        "notFound": "No Boxers found"
+        "title": "الملاكمين",
+        "createLabel": "إنشاء ملاكم جديد",
+        "createOrEditLabel": "إنشاء أو تحرير الملاكم",
+        "notFound": "لم يتم العثور على الملاكمين"
       },
-      "created": "A new Boxer is created with identifier {{ param }}",
-      "updated": "A Boxer is updated with identifier {{ param }}",
-      "deleted": "A Boxer is deleted with identifier {{ param }}",
+      "created": "يتم إنشاء ملاكم الجديد برقم التسجيل  {{ param }}",
+      "updated": "يتم تحديث الملاكم برقم التسجيل {{ param }}",
+      "deleted": " يتم حذف الملاكم برقم التسجيل {{ param }}",
       "delete": {
-        "question": "Are you sure you want to delete Boxer {{ fullname }}?"
+        "question": "هل أنت متأكد أنك تريد حذف الملاكم {{ fullname }}?"
       },
       "detail": {
-        "title": "Boxer"
+        "title": "الملاكم"
       },
-      "fullName": "Full Name",
-      "birthDate": "Birth Date",
-      "info": "Information",
-      "phone": "Phone",
-      "picture": "Picture"
+      "fullName": "الإسم واللقب",
+      "birthDate": "تاريخ الميلاد",
+      "info": "معلومات",
+      "phone": "هاتف",
+      "picture": "صورة"
     }
   }
 }

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BoxerPrintService } from '../boxer-print.service';
 import { IBoxer } from 'app/shared/model/boxer.model';
+import { JhiLanguageService } from 'ng-jhipster';
 
 @Component({
   selector: 'jhi-print-boxeur-card',
@@ -10,10 +11,11 @@ import { IBoxer } from 'app/shared/model/boxer.model';
 export class PrintBoxeurCardComponent implements OnInit {
   boxer: IBoxer;
   categorie: any = 'senior';
-
-  constructor(protected printService: BoxerPrintService) {}
+  isAr = false;
+  constructor(protected printService: BoxerPrintService, protected languageService: JhiLanguageService) {}
 
   ngOnInit() {
     this.boxer = this.printService.data;
+    this.isAr = this.languageService.currentLang === 'ar-ly';
   }
 }

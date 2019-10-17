@@ -104,7 +104,9 @@
       "open": "Open",
       "save": "Save",
       "view": "View",
-      "print": "Print"
+      "print": "Print",
+      "printAll": "Print All",
+      "print-card": "Print card"
     },
     "detail": {
       "field": "Field",

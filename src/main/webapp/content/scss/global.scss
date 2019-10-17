@@ -176,4 +176,12 @@ ui bootstrap tweaks
   -ms-transform: rotate(90deg);
   transform: rotate(90deg);
 }
+
+.rotate-ar {
+  -webkit-transform: rotate(270deg);
+  -moz-transform: rotate(270deg);
+  -o-transform: rotate(270deg);
+  -ms-transform: rotate(270deg);
+  transform: rotate(270deg);
+}
 /* jhipster-needle-scss-add-main JHipster will add new css style */

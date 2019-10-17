@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="col-1">
-                            <div class=" rotate " style="height: 34px">
+                            <div [class.rotate]="!isAr" [class.rotate-ar]="isAr" style="height: 34px">
                                     <ngx-barcode  [bc-value]="1024" [bc-width]="3" [bc-height]="50" [bc-display-value]="false"></ngx-barcode>
                               </div>
                            

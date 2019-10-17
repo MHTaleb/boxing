@@ -94,6 +94,9 @@
     "item-count": "يعرض {{first}} - {{second}} من {{total}} البيانات."
   },
   "entity": {
+    "tools": {
+      "printer": "الطابعة"
+    },
     "action": {
       "addblob": "اضف ملف",
       "addimage": "اضف صورة",
@@ -104,7 +107,9 @@
       "open": "فتح",
       "save": "حفظ",
       "view": "عرض",
-      "print": "طباعة"
+      "print": "طباعة",
+      "printAll": "طباعة الكل",
+      "print-card": "طباعة البطاقة"
     },
     "print": {
       "title": "معاينة قبل الطباعة"

@@ -56,7 +56,7 @@
                 <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
                     <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle>
                         <fa-icon [icon]="'print'"></fa-icon>
-                        <span class="d-none d-md-inline mx-1" jhiTranslate="entity.action.print">Print</span>
+                        <span class="d-none d-md-inline mx-1" jhiTranslate="entity.tools.printer">Print</span>
                     </button>
                     <div class="dropdown-menu" ngbDropdownMenu>
                         <button ngbDropdownItem type="submit" replaceUrl="true" queryParamsHandling="merge"
@@ -97,7 +97,7 @@
                             <a *ngIf="boxer.picture?.img"
                                 (click)="openFile(boxer.picture.imgContentType, boxer.picture.img)">
                                 <img [src]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
-                                    style="max-width: 18rem;max-height: 18rem;" alt="picture image" />
+                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;" alt="picture image" />
                             </a>
                         </div>
                         <li class="list-group-item">
@@ -110,32 +110,35 @@
                             <p class="card-text"><b><span jhiTranslate="boxingApp.boxer.phone">Birth Date</span></b>:
                                 {{boxer.phone}}</p>
                         </li>
+                        <li class="list-group-item">
 
+                            <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
+                                class="btn btn-outline-success btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/boxer', boxer.id, 'edit']"
+                                class="btn btn-outline-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
+                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+
+                        </li>
+                        <li class="list-group-item">
+                            <button replaceUrl="true" queryParamsHandling="merge" (click)="print(card,boxer)"
+                                class="btn btn-outline-danger btn-sm">
+                                <fa-icon [icon]="'credit-card'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.print-card">print
+                                    card</span>
+                            </button>
+                        </li>
                     </ul>
-                    <div class="card-body">
 
-                        <button replaceUrl="true" queryParamsHandling="merge" (click)="print(card,boxer)"
-                            class="btn btn-outline-danger btn-sm">
-                            <fa-icon [icon]="'credit-card'"></fa-icon>
-                            <span class="d-none d-md-inline">print card</span>
-                        </button>
-
-                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
-                            class="btn btn-outline-success btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'edit']"
-                            class="btn btn-outline-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
-                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
                 </div>
 
             </div>
