@@ -96,11 +96,15 @@
                         <div class="d-flex justify-content-center">
                             <a *ngIf="boxer.picture?.id"
                                 (click)="openFile(boxer.picture.imgContentType, boxer.picture.img)">
-                                <img *ngIf="boxer.picture.img" [defaultImage]="man" [lazyLoad]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img" 
-                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;" alt="picture image" />
-                                <img  *ngIf="!boxer.picture.img" [defaultImage]="man" [lazyLoad]="man" 
-                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;" alt="picture image" />
-                                
+                                <img *ngIf="boxer.picture.img" [defaultImage]="man"
+                                    [lazyLoad]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
+                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;"
+                                    alt="picture image" />
+
+                                <img *ngIf="!boxer.picture.img" [defaultImage]="man" [lazyLoad]="man"
+                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;"
+                                    alt="picture image" />
+
                             </a>
                         </div>
                         <li class="list-group-item">
