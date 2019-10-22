@@ -4,7 +4,7 @@
         <jhi-alert-error></jhi-alert-error>
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
     </div>
-    <div class="mx-1 " id="print-content">
+    <div class="mx-1 overflow-auto " style="height: 100%;width:100%" >
        
         <div [ngSwitch]="current">
             <jhi-print-boxeur-list *ngSwitchCase="all"></jhi-print-boxeur-list>

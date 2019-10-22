@@ -7,9 +7,9 @@ import { JhiLoginModalComponent } from './login/login.component';
 import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { NgxBarcodeModule, NgxBarcodeComponent } from 'ngx-barcode';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
-
+import { FlexLayoutModule } from '@angular/flex-layout';
 @NgModule({
-  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot(), LazyLoadImageModule],
+  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot(), LazyLoadImageModule, FlexLayoutModule],
   declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
   exports: [
@@ -20,7 +20,8 @@ import { LazyLoadImageModule } from 'ng-lazyload-image';
     JhiAlertComponent,
     JhiAlertErrorComponent,
     JhiLoginModalComponent,
-    HasAnyAuthorityDirective
+    HasAnyAuthorityDirective,
+    FlexLayoutModule
   ]
 })
 export class BoxingSharedModule {}
