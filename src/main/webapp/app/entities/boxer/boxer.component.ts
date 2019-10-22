@@ -11,6 +11,7 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
+import { BoxerPrintService } from './boxer-print.service';
 
 @Component({
   selector: 'jhi-boxer',
@@ -33,8 +34,11 @@ export class BoxerComponent implements OnInit, OnDestroy {
   searchFilter: any;
   searchValue: any;
   printValue: any;
+  card: any;
+  man = '../../../content/images/man-user.png';
 
   constructor(
+    protected printService: BoxerPrintService,
     protected boxerService: BoxerService,
     protected parseLinks: JhiParseLinks,
     protected jhiAlertService: JhiAlertService,
@@ -45,7 +49,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this.boxers = [];
-    this.itemsPerPage = 5;
+    this.itemsPerPage = 12;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
@@ -61,6 +65,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.searchFilter = 'fullName';
     this.searchValue = '';
     this.printValue = '';
+    this.card = this.printService.PRINT_CARD;
   }
 
   loadAll() {
@@ -80,6 +85,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     this.boxers = [];
     if (this.searchValue) {
       this.printValue = this.searchValue;
+
       this.boxerService
         .query(
           {
@@ -99,6 +105,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
       this.printValue = '';
       this.loadAll();
     }
+    this.boxerService.value = this.printValue;
+    this.boxerService.filter = this.searchFilter;
   }
 
   reset() {
@@ -135,6 +143,13 @@ export class BoxerComponent implements OnInit, OnDestroy {
       }
     ]);
     this.loadAll();
+  }
+
+  print(operation?: string, data?: any) {
+    const printOperation = operation ? operation : this.printService.PRINT_ALL;
+    if (data) this.printService.data = data;
+    this.printService.setOperation(printOperation);
+    this.router.navigate(['/boxer', { outlets: { popup: '/print' } }]);
   }
 
   ngOnInit() {

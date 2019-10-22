@@ -52,17 +52,31 @@
             </table>
 
 
-            <button type="submit" [routerLink]="['/boxer', { outlets: { popup:'/print'} }]"
-                replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
-                <fa-icon [icon]="'print'"></fa-icon>
-                <span class="d-none d-md-inline" jhiTranslate="entity.action.print">Print</span>
-            </button>
+            <div class="btn-group">
+                <div class="btn-group" ngbDropdown role="group" aria-label="Button group with nested dropdown">
+                    <button class="btn btn-primary dropdown-toggle-split" ngbDropdownToggle>
+                        <fa-icon [icon]="'print'"></fa-icon>
+                        <span class="d-none d-md-inline mx-1" jhiTranslate="entity.tools.printer">Print</span>
+                    </button>
+                    <div class="dropdown-menu" ngbDropdownMenu>
+                        <button ngbDropdownItem type="submit" replaceUrl="true" queryParamsHandling="merge"
+                            (click)="print()" class="btn btn-outline-danger btn-sm">
+                            <fa-icon [icon]="'print'"></fa-icon>
+                            <span class="d-none d-md-inline" jhiTranslate="entity.action.printAll">Print All</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+
 
             <!-- search filter-->
-            <input *ngIf="searchFilter !== 'birthDate' " type="text" class="form-control border-secondary table-primary focus-secondary  "
-                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
-            <input *ngIf="searchFilter === 'birthDate' " type="date" class="form-control border-secondary table-primary focus-secondary  "
-                placeholder="Search" aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
+            <input *ngIf="searchFilter !== 'birthDate' " type="text"
+                class="form-control border-secondary table-primary focus-secondary  " placeholder="Search"
+                aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
+            <input *ngIf="searchFilter === 'birthDate' " type="date"
+                class="form-control border-secondary table-primary focus-secondary  " placeholder="Search"
+                aria-label="Search" aria-describedby="basic-addon2" (keyup.enter)="search()" [(ngModel)]="searchValue">
             <div class="input-group-append mr-2" (click)="onButtonGroupClick($event)">
                 <button class="btn btn btn-outline-secondary active" type="button"
                     jhiTranslate="boxingApp.boxer.fullName" value="fullName">FullName</button>
@@ -73,18 +87,24 @@
             </div>
         </div>
 
-        <div  *ngIf="boxers?.length > 0" class="row ml-1">
+        <div *ngIf="boxers?.length > 0" class="row ml-1">
 
-            <div *ngFor="let boxer of boxers ;trackBy: trackId"
-                class="card mx-1 mb-1" style="width: 23rem;">
+            <div *ngFor="let boxer of boxers ;trackBy: trackId" class="card mx-1 mb-1" style="width: 23rem;">
 
                 <div class="mt-auto">
                     <ul class="list-group list-group-flush">
                         <div class="d-flex justify-content-center">
-                            <a *ngIf="boxer.picture?.img"
+                            <a *ngIf="boxer.picture?.id"
                                 (click)="openFile(boxer.picture.imgContentType, boxer.picture.img)">
-                                <img [src]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
-                                    style="max-width: 18rem;max-height: 18rem;" alt="picture image" />
+                                <img *ngIf="boxer.picture.img" [defaultImage]="man"
+                                    [lazyLoad]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
+                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;"
+                                    alt="picture image" />
+
+                                <img *ngIf="!boxer.picture.img" [defaultImage]="man" [lazyLoad]="man"
+                                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;"
+                                    alt="picture image" />
+
                             </a>
                         </div>
                         <li class="list-group-item">
@@ -97,25 +117,35 @@
                             <p class="card-text"><b><span jhiTranslate="boxingApp.boxer.phone">Birth Date</span></b>:
                                 {{boxer.phone}}</p>
                         </li>
+                        <li class="list-group-item">
 
+                            <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
+                                class="btn btn-outline-success btn-sm">
+                                <fa-icon [icon]="'eye'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/boxer', boxer.id, 'edit']"
+                                class="btn btn-outline-primary btn-sm">
+                                <fa-icon [icon]="'pencil-alt'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
+                            </button>
+                            <button type="submit" [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
+                                replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
+                                <fa-icon [icon]="'times'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
+                            </button>
+
+                        </li>
+                        <li class="list-group-item">
+                            <button replaceUrl="true" queryParamsHandling="merge" (click)="print(card,boxer)"
+                                class="btn btn-outline-danger btn-sm">
+                                <fa-icon [icon]="'credit-card'"></fa-icon>
+                                <span class="d-none d-md-inline" jhiTranslate="entity.action.print-card">print
+                                    card</span>
+                            </button>
+                        </li>
                     </ul>
-                    <div class="card-body">
-                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'view' ]"
-                            class="btn btn-outline-success btn-sm">
-                            <fa-icon [icon]="'eye'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.view">View</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/boxer', boxer.id, 'edit']"
-                            class="btn btn-outline-primary btn-sm">
-                            <fa-icon [icon]="'pencil-alt'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Edit</span>
-                        </button>
-                        <button type="submit" [routerLink]="['/boxer', { outlets: { popup: boxer.id + '/delete'} }]"
-                            replaceUrl="true" queryParamsHandling="merge" class="btn btn-outline-danger btn-sm">
-                            <fa-icon [icon]="'times'"></fa-icon>
-                            <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Delete</span>
-                        </button>
-                    </div>
+
                 </div>
 
             </div>

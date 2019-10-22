@@ -8,8 +8,8 @@
         "notFound": "Aucun Boxeur trouvé"
       },
       "created": "Un nouveau Boxeur a été créé avec l'identifiant {{ param }}",
-      "updated": "Le Boxer avec l'identifiant {{ param }} a été mis à jour",
-      "deleted": "Le Boxer avec l'identifiant {{ param }} a été supprimé",
+      "updated": "Le Boxeur avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Boxeur avec l'identifiant {{ param }} a été supprimé",
       "delete": {
         "question": "Etes-vous certain de vouloir supprimer le Boxeur {{ fullName }} ?"
       },

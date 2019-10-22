@@ -94,6 +94,9 @@
     "item-count": "Affichage {{first}} - {{second}} de {{total}} items."
   },
   "entity": {
+    "tools": {
+      "printer": "Imprimante"
+    },
     "action": {
       "addblob": "Ajouter blob",
       "addimage": "Ajouter image",
@@ -104,7 +107,9 @@
       "open": "Ouvrir",
       "save": "Sauvegarder",
       "view": "Voir",
-      "print": "Imprimer"
+      "print": "Imprimer",
+      "printAll": "Imprimer Tout",
+      "print-card": "Imprimer Carte"
     },
     "detail": {
       "field": "Champs",

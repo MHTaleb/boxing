@@ -1,11 +1,16 @@
-<form name="deleteForm" (ngSubmit)="print()">
+<form name="deleteForm" (ngSubmit)="printReport()">
     <div class="modal-header">
         <h4 class="modal-title" jhiTranslate="entity.print.title">Printing Boxers Preview</h4>
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"
-                (click)="clear()">&times;</button>
-    </div>
-    <div class="modal-body" id="print-content">
         <jhi-alert-error></jhi-alert-error>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true" (click)="clear()">&times;</button>
+    </div>
+    <div class="mx-1 " id="print-content">
+       
+        <div [ngSwitch]="current">
+            <jhi-print-boxeur-list *ngSwitchCase="all"></jhi-print-boxeur-list>
+            <jhi-print-boxeur-card *ngSwitchCase="card"></jhi-print-boxeur-card>
+        </div>
+        
     </div>
     <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal" (click)="clear()">
