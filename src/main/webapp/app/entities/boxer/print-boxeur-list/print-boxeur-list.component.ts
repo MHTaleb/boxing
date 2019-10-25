@@ -44,6 +44,10 @@ export class PrintBoxeurListComponent implements OnInit, OnDestroy {
       );
   }
 
+  trackId(index: number, item: IBoxer) {
+    return item.id;
+  }
+
   ngOnDestroy() {
     this.printService.free();
   }
