@@ -36,6 +36,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   printValue: any;
   card: any;
   man = '../../../content/images/man-user.png';
+  lessons = [];
 
   constructor(
     protected printService: BoxerPrintService,
