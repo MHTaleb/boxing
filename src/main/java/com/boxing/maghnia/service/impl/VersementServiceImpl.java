@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Implementation for managing {@link Versement}.
@@ -76,5 +77,11 @@ public class VersementServiceImpl implements VersementService {
     public void delete(Long id) {
         log.debug("Request to delete Versement : {}", id);
         versementRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Versement> findAllVersementOfBoxer(Long id) {
+        log.debug("calling versement repository method with boxer id ");
+        return versementRepository.findAllByBoxerId(id);
     }
 }

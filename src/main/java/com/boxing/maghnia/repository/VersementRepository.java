@@ -1,4 +1,6 @@
 package com.boxing.maghnia.repository;
+import java.util.Set;
+
 import com.boxing.maghnia.domain.Versement;
 import org.springframework.data.jpa.repository.*;
 import org.springframework.stereotype.Repository;
@@ -10,5 +12,7 @@ import org.springframework.stereotype.Repository;
 @SuppressWarnings("unused")
 @Repository
 public interface VersementRepository extends JpaRepository<Versement, Long> {
+
+	Set<Versement> findAllByBoxerId(Long id);
 
 }

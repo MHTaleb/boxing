@@ -1,6 +1,5 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { IBoxer } from 'app/shared/model/boxer.model';
-import printJS from 'print-js/src/index';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { JhiEventManager, JhiAlertService } from 'ng-jhipster';
 import { BoxerService } from '../boxer.service';
@@ -46,6 +45,10 @@ export class PrintBoxeurListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {
     this.printService.free();
+  }
+
+  trackId(index: number, item: IBoxer) {
+    return item.id;
   }
 
   onError(message) {

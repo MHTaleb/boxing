@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * Service Implementation for managing {@link Lesson}.
@@ -61,7 +62,6 @@ public class LessonServiceImpl implements LessonService {
     public Page<Lesson> findAllWithEagerRelationships(Pageable pageable) {
         return lessonRepository.findAllWithEagerRelationships(pageable);
     }
-    
 
     /**
      * Get one lesson by id.
@@ -85,5 +85,12 @@ public class LessonServiceImpl implements LessonService {
     public void delete(Long id) {
         log.debug("Request to delete Lesson : {}", id);
         lessonRepository.deleteById(id);
+    }
+
+    @Override
+    public Set<Lesson> findAllWithBoxerId(Long id) {
+        log.debug("calling method service findAllWithBoxerID");
+        return lessonRepository.findAllByBoxerId(id);
+         
     }
 }

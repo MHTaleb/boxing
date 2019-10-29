@@ -1,41 +1,93 @@
+
+        <button type="submit" (click)="previousState()" style="float: right;" class="btn btn-outline-info btn-sm">
+                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">
+                    Back</span>
+            </button>
+
 <div class="row justify-content-center">
-    <div class="col-8">
-        <div *ngIf="boxer">
-            <h2><span jhiTranslate="boxingApp.boxer.detail.title">Boxer</span> {{boxer.id}}</h2>
+
+
+    <div gdGap="20px" gdColumns="repeat(3, [col] auto)" gdRows="repeat(2, [row] auto)">
+        <div class="box" gdColumn="2" gdRow="1">
+            <h2>Photo </h2>
             <hr>
-            <jhi-alert-error></jhi-alert-error>
-            <dl class="row-md jh-entity-details">
+            <a *ngIf="boxer.picture?.id" (click)="openFile(boxer.picture.imgContentType, boxer.picture.img)">
+                <img *ngIf="boxer.picture.img" [defaultImage]="man"
+                    [lazyLoad]="'data:' + boxer.picture.imgContentType + ';base64,' + boxer.picture.img"
+                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;" alt="picture image" />
+
+                <img *ngIf="!boxer.picture.img" [defaultImage]="manPicturePath" [lazyLoad]="manPicturePath"
+                    style="max-width: 14rem;max-height: 14rem; width: 14rem;height: 14rem;" alt="picture image" />
+
+            </a>
+
+        </div>
+        <div class="box" gdColumn="3" gdRow="1">
+            <h2>Information </h2>
+            <hr>
+            <dl class="row-md mt-3 ml-3 jh-entity-details">
                 <dt><span jhiTranslate="boxingApp.boxer.fullName">Full Name</span></dt>
                 <dd>
                     <span>{{boxer.fullName}}</span>
                 </dd>
                 <dt><span jhiTranslate="boxingApp.boxer.birthDate">Birth Date</span></dt>
                 <dd>
-                    <span>{{boxer.birthDate}}</span>
+                    <span>{{boxer.birthDate | date : 'shortDate'}}</span>
                 </dd>
                 <dt><span jhiTranslate="boxingApp.boxer.phone">Phone</span></dt>
                 <dd>
                     <span>{{boxer.phone}}</span>
                 </dd>
-                <dt><span jhiTranslate="boxingApp.boxer.picture">Picture</span></dt>
-                <dd>
-                    <div *ngIf="boxer.picture">
-                        <a [routerLink]="['/picture', boxer.picture?.id, 'view']">{{boxer.picture?.title}}</a>
-                    </div>
-                </dd>
+
+
+                <button type="button" [routerLink]="['/boxer', boxer.id, 'edit']"
+                    class="btn btn-outline-primary btn-sm">
+                    <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">
+                        Edit</span>
+                </button>
             </dl>
+        </div>
+        <div class="box" gdColumn="2" gdRow="2">
+            <div *ngIf="lessons">
+                <div *ngIf="(lessons|async)?.length > 0">
+                    <h2>les dernieres lessons </h2>
+                    <hr>
+                    <ul class="list-group" style="user-select: auto;">
+                        <li *ngFor=" let lesson of (lessons | async) | slice:0:3; let i=index "
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                            style="user-select: auto;">
+                            <a class="text-secondary" [routerLink]="['/lesson', lesson.id, 'view' ]">
+                                <span class="badge badge-primary badge-pill mr-2"
+                                    style="user-select: auto;">{{i+1}}</span>
+                                {{lesson.detail}}
+                            </a>
 
-            <button type="submit"
-                    (click)="previousState()"
-                    class="btn btn-info">
-                <fa-icon [icon]="'arrow-left'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back"> Back</span>
-            </button>
+                        </li>
+                    </ul>
+                </div>
 
-            <button type="button"
-                    [routerLink]="['/boxer', boxer.id, 'edit']"
-                    class="btn btn-primary">
-                <fa-icon [icon]="'pencil-alt'"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit"> Edit</span>
-            </button>
+            </div>
+        </div>
+        <div class="box" gdColumn="3" gdRow="2">
+            <div *ngIf="versements">
+                <div *ngIf="(versements|async)?.length > 0">
+                    <h2>les derniers versements </h2>
+                    <hr>
+                    <ul class="list-group" style="user-select: auto;">
+                        <li *ngFor=" let versement of (versements | async ) | slice:0:3; let i=index "
+                            class="list-group-item d-flex justify-content-between align-items-center"
+                            style="user-select: auto;">
+                            <a class="text-secondary" [routerLink]="['/versement', versement.id, 'view' ]">
+                                <span class="badge badge-primary badge-pill mr-2"
+                                    style="user-select: auto;">{{i+1}}</span>
+                                Montant {{versement.montant}} versé le : {{versement.date | date :'shortDate'}}
+                            </a>
+
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
+
 </div>

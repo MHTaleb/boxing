@@ -16,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<ILesson[]>;
 @Injectable({ providedIn: 'root' })
 export class LessonService {
   public resourceUrl = SERVER_API_URL + 'api/lessons';
+  public BY_BOXER_ID = '/boxer/id';
 
   constructor(protected http: HttpClient) {}
 
@@ -39,10 +40,10 @@ export class LessonService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any, path: any = ''): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<ILesson[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<ILesson[]>(this.resourceUrl + path, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 

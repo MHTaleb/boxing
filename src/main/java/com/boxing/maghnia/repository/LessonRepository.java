@@ -1,4 +1,5 @@
 package com.boxing.maghnia.repository;
+
 import com.boxing.maghnia.domain.Lesson;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,15 +9,15 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
- * Spring Data  repository for the Lesson entity.
+ * Spring Data repository for the Lesson entity.
  */
 @Repository
 public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
-    @Query(value = "select distinct lesson from Lesson lesson left join fetch lesson.boxers",
-        countQuery = "select count(distinct lesson) from Lesson lesson")
+    @Query(value = "select distinct lesson from Lesson lesson left join fetch lesson.boxers", countQuery = "select count(distinct lesson) from Lesson lesson")
     Page<Lesson> findAllWithEagerRelationships(Pageable pageable);
 
     @Query("select distinct lesson from Lesson lesson left join fetch lesson.boxers")
@@ -24,5 +25,8 @@ public interface LessonRepository extends JpaRepository<Lesson, Long> {
 
     @Query("select lesson from Lesson lesson left join fetch lesson.boxers where lesson.id =:id")
     Optional<Lesson> findOneWithEagerRelationships(@Param("id") Long id);
+
+    @Query("select distinct lesson from Lesson lesson left join fetch lesson.boxers boxers where :id in boxers.id order by lesson.date desc")
+    Set<Lesson> findAllByBoxerId(@Param("id") Long id);
 
 }

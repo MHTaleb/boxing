@@ -12,6 +12,7 @@ import { AccountService } from 'app/core/auth/account.service';
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { BoxerService } from './boxer.service';
 import { BoxerPrintService } from './boxer-print.service';
+import { ILesson } from 'app/shared/model/lesson.model';
 
 @Component({
   selector: 'jhi-boxer',
@@ -37,6 +38,8 @@ export class BoxerComponent implements OnInit, OnDestroy {
   card: any;
   man = '../../../content/images/man-user.png';
 
+  lessons: ILesson[];
+
   constructor(
     protected printService: BoxerPrintService,
     protected boxerService: BoxerService,
@@ -49,7 +52,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
     protected eventManager: JhiEventManager
   ) {
     this.boxers = [];
-    this.itemsPerPage = 12;
+    this.lessons = [];
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
       this.previousPage = data.pagingParams.page;
@@ -153,6 +156,7 @@ export class BoxerComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.itemsPerPage = ITEMS_PER_PAGE;
     this.loadAll();
     this.accountService.identity().then(account => {
       this.currentAccount = account;

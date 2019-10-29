@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +22,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link com.boxing.maghnia.domain.Lesson}.
@@ -104,6 +104,17 @@ public class LessonResource {
         HttpHeaders headers = PaginationUtil.generatePaginationHttpHeaders(ServletUriComponentsBuilder.fromCurrentRequest(), page);
         return ResponseEntity.ok().headers(headers).body(page.getContent());
     }
+
+    /**
+     *  {@code GET  /lessons/boxer/id} : get all the lessons of selected boxer.
+     */
+    @GetMapping("/lessons/boxer/id")
+    public ResponseEntity<Set<Lesson>> getAllLessonsByBoxerId(@RequestParam() Long id){
+        log.debug("Rest Request to get all boxer id '{}' lessons",id);
+        
+        return ResponseEntity.ok().body(lessonService.findAllWithBoxerId(id));
+    }
+
 
     /**
      * {@code GET  /lessons/:id} : get the "id" lesson.

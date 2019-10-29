@@ -23,6 +23,7 @@ import java.net.URISyntaxException;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 /**
  * REST controller for managing {@link com.boxing.maghnia.domain.Versement}.
@@ -111,6 +112,13 @@ public class VersementResource {
         log.debug("REST request to get Versement : {}", id);
         Optional<Versement> versement = versementService.findOne(id);
         return ResponseUtil.wrapOrNotFound(versement);
+    }
+
+    @GetMapping("/versements/boxer/id")
+    public ResponseEntity<Set<Versement>> getAllVersementByBoxerId(@RequestParam() Long id){
+        
+        log.debug("fetching all versement of boxer id {}",id);
+        return ResponseEntity.ok().body(versementService.findAllVersementOfBoxer(id));
     }
 
     /**

@@ -16,6 +16,7 @@ type EntityArrayResponseType = HttpResponse<IVersement[]>;
 @Injectable({ providedIn: 'root' })
 export class VersementService {
   public resourceUrl = SERVER_API_URL + 'api/versements';
+  public BY_BOXER_ID = '/boxer/id';
 
   constructor(protected http: HttpClient) {}
 
@@ -39,10 +40,10 @@ export class VersementService {
       .pipe(map((res: EntityResponseType) => this.convertDateFromServer(res)));
   }
 
-  query(req?: any): Observable<EntityArrayResponseType> {
+  query(req?: any, path: any = ''): Observable<EntityArrayResponseType> {
     const options = createRequestOption(req);
     return this.http
-      .get<IVersement[]>(this.resourceUrl, { params: options, observe: 'response' })
+      .get<IVersement[]>(this.resourceUrl + path, { params: options, observe: 'response' })
       .pipe(map((res: EntityArrayResponseType) => this.convertDateArrayFromServer(res)));
   }
 
