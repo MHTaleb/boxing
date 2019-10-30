@@ -11,6 +11,7 @@ import { AccountService } from 'app/core/auth/account.service';
 
 import { ITEMS_PER_PAGE } from 'app/shared/constants/pagination.constants';
 import { LessonService } from './lesson.service';
+import { IBoxer } from 'app/shared/model/boxer.model';
 
 @Component({
   selector: 'jhi-lesson',
@@ -30,6 +31,8 @@ export class LessonComponent implements OnInit, OnDestroy {
   predicate: any;
   previousPage: any;
   reverse: any;
+  boxers: IBoxer[];
+  currentId: number;
 
   constructor(
     protected lessonService: LessonService,
@@ -40,6 +43,7 @@ export class LessonComponent implements OnInit, OnDestroy {
     protected router: Router,
     protected eventManager: JhiEventManager
   ) {
+    this.currentId = -1;
     this.itemsPerPage = ITEMS_PER_PAGE;
     this.routeData = this.activatedRoute.data.subscribe(data => {
       this.page = data.pagingParams.page;
@@ -110,6 +114,23 @@ export class LessonComponent implements OnInit, OnDestroy {
 
   registerChangeInLessons() {
     this.eventSubscriber = this.eventManager.subscribe('lessonListModification', response => this.loadAll());
+  }
+
+  selectedLesson(lesson: ILesson) {
+    this.boxers = [];
+    this.currentId = this.currentId === lesson.id ? -1 : lesson.id;
+    if (this.currentId !== -1)
+      this.lessonService.find(lesson.id).subscribe(
+        (res: HttpResponse<ILesson>) => {
+          this.boxers = res.body.boxers;
+          this.currentId = lesson.id;
+        },
+        (err: HttpErrorResponse) => this.onError(err.message)
+      );
+  }
+
+  trackBoxerId(boxer: IBoxer) {
+    return boxer.id;
   }
 
   sort() {

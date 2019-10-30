@@ -93,8 +93,7 @@
         </div>
     </div>
     <div *ngIf="boxers?.length > 0" fxFlexFill>
-        <div fxFlexFill fxLayout="row wrap" fxLayoutGap="10px grid" style="cursor: pointer;"
-            (click)="toggleDirection()">
+        <div fxFlexFill fxLayout="row wrap" fxLayoutGap="10px grid" style="cursor: pointer;">
             <div *ngFor="let boxer of boxers ;trackBy: trackId" fxFlex="25" fxFlex.sm="50" fxFlex.xs="100" fxFlex.md="50">
                 <div class="card" fxFlexFill fxLayoutAlign="center center">
                     <div class="mt-auto">

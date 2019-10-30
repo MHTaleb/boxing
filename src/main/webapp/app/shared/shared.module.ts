@@ -8,11 +8,14 @@ import { HasAnyAuthorityDirective } from './auth/has-any-authority.directive';
 import { NgxBarcodeModule, NgxBarcodeComponent } from 'ngx-barcode';
 import { LazyLoadImageModule } from 'ng-lazyload-image';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { NgPipesModule, OrderByPipe, FilterByPipe } from 'ngx-pipes';
 @NgModule({
-  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot(), LazyLoadImageModule, FlexLayoutModule],
+  imports: [BoxingSharedLibsModule, NgxBarcodeModule.forRoot(), LazyLoadImageModule, FlexLayoutModule, NgPipesModule],
   declarations: [FindLanguageFromKeyPipe, JhiAlertComponent, JhiAlertErrorComponent, JhiLoginModalComponent, HasAnyAuthorityDirective],
   entryComponents: [JhiLoginModalComponent],
   exports: [
+    FilterByPipe,
+    OrderByPipe,
     NgxBarcodeComponent,
     BoxingSharedLibsModule,
     LazyLoadImageModule,
